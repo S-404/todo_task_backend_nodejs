@@ -1,0 +1,89 @@
+USE [TODO_TASK]
+GO
+
+/****** Object:  Table [dbo].[USERS_ACCESS]    Script Date: 12/12/2021 8:10:42 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[USERS_ACCESS](
+	[USERGROUP_ID] [int] NOT NULL,
+	[USERID] [nvarchar](50) NOT NULL,
+	[ISADMIN] [bit] NULL,
+	[ID] [int] IDENTITY(1,1) NOT NULL
+) ON [PRIMARY]
+GO
+
+
+USE [TODO_TASK]
+GO
+
+/****** Object:  Table [dbo].[USERGROUPS]    Script Date: 12/12/2021 8:11:27 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[USERGROUPS](
+	[USERGROUP] [nvarchar](50) NULL,
+	[USERGROUP_ID] [int] IDENTITY(1,1) NOT NULL
+) ON [PRIMARY]
+GO
+
+
+USE [TODO_TASK]
+GO
+
+/****** Object:  Table [dbo].[TASKS]    Script Date: 12/12/2021 8:12:15 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TASKS](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[TASK_NAME] [nvarchar](max) NOT NULL,
+	[PERIODICITY] [int] NOT NULL,
+	[DEADLINE] [int] NOT NULL,
+	[STATUS] [nvarchar](10) NULL,
+	[TASK_GROUP] [nvarchar](30) NULL,
+	[STARTED] [datetime] NULL,
+	[FINISHED] [datetime] NULL,
+	[AVERAGE_TIME] [float] NULL,
+	[TASK_DESCRIPTION] [nvarchar](max) NULL,
+	[USERID] [nvarchar](10) NULL,
+	[USERGROUP_ID] [int] NOT NULL,
+	[LAST_CHANGE] [datetime] NULL,
+	[NOTE] [nvarchar](max) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+USE [TODO_TASK]
+GO
+
+/****** Object:  Table [dbo].[TASK_LINKS]    Script Date: 12/12/2021 8:12:59 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TASK_LINKS](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[USERGROUP_ID] [int] NULL,
+	[TASK_ID] [int] NULL,
+	[TASK_LINK] [nvarchar](max) NULL,
+	[ISMAIN] [bit] NOT NULL,
+	[LINK_DESCRIPTION] [nvarchar](max) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[TASK_LINKS] ADD  CONSTRAINT [DF_Table_1_MAIN_TASK_LINK]  DEFAULT ((0)) FOR [ISMAIN]
+GO
+
+
