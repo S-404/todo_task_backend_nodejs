@@ -5,6 +5,10 @@ const config = {
   database: 'TODO_TASK',
   port: 1433,
   dialect: 'mssql',
+  options: {
+    encrypt: false,
+    enableArithAbort: false,
+  },
   dialectOptions: {
     instanceName: 'SQLEXPRESS',
   },
